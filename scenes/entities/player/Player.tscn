@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://db1c6cylyqy42"]
+
+[ext_resource type="Script" uid="uid://5x8dmkp1coq2" path="res://Scenes/Entities/Player/Player.cs" id="1_afppm"]
+[ext_resource type="Script" uid="uid://h3qm880cjjtb" path="res://Common/Components/SpeedComponent.cs" id="2_hi4ft"]
+[ext_resource type="Texture2D" uid="uid://cqv2thbgs86be" path="res://Assets/Images/icon.svg" id="2_n1xdv"]
+[ext_resource type="Script" uid="uid://ckxysjv1eqmrn" path="res://Scenes/Entities/Player/StateMachine/PlayerStateMachine.cs" id="3_hgjck"]
+[ext_resource type="Script" uid="uid://0nxallki2e4l" path="res://Scenes/Entities/Player/StateMachine/States/Idle.cs" id="4_hgjck"]
+[ext_resource type="Script" uid="uid://ea572dcheuel" path="res://Scenes/Entities/Player/StateMachine/States/Immobile.cs" id="5_ppr6r"]
+[ext_resource type="Script" uid="uid://caas3xvjayqj7" path="res://Scenes/Entities/Player/StateMachine/States/Moving.cs" id="6_rx1o7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_30dhn"]
+radius = 60.4152
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("StateLabel", "StateMachine")]
+script = ExtResource("1_afppm")
+StateLabel = NodePath("Debug/Label")
+StateMachine = NodePath("PlayerStateMachine")
+
+[node name="SpeedComponent" type="Node" parent="."]
+script = ExtResource("2_hi4ft")
+metadata/_custom_type_script = "uid://h3qm880cjjtb"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_n1xdv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_30dhn")
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("DefaultState")]
+script = ExtResource("3_hgjck")
+DefaultState = NodePath("Idle")
+metadata/_custom_type_script = "uid://dkgkmyjjlowyn"
+
+[node name="Idle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Entity", "SpeedComponent")]
+script = ExtResource("4_hgjck")
+Entity = NodePath("../..")
+SpeedComponent = NodePath("../../SpeedComponent")
+metadata/_custom_type_script = "uid://dda3vtjtruw2j"
+
+[node name="Moving" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Entity", "SpeedComponent")]
+script = ExtResource("6_rx1o7")
+Entity = NodePath("../..")
+SpeedComponent = NodePath("../../SpeedComponent")
+metadata/_custom_type_script = "uid://dda3vtjtruw2j"
+
+[node name="Immobile" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("entity")]
+script = ExtResource("5_ppr6r")
+entity = NodePath("../..")
+metadata/_custom_type_script = "uid://dda3vtjtruw2j"
+
+[node name="Debug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -56.0
+offset_top = -119.0
+offset_right = 60.0
+offset_bottom = -79.0
+
+[node name="Label" type="Label" parent="Debug"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

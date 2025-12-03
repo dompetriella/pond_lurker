@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciudsaf8ox1g4"]
+
+[ext_resource type="Theme" uid="uid://befu1x5a2206v" path="res://Assets/Themes/ApplicationTheme.tres" id="1_to4u0"]
+[ext_resource type="Script" uid="uid://uvrkstxapxae" path="res://Common/Managers/NotificationManager/Notification/Notification.cs" id="2_praw3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j82es"]
+bg_color = Color(0.12041845, 0.12041847, 0.12041838, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="SimpleNotification" type="MarginContainer" node_paths=PackedStringArray("MessageLabel", "TextureRectImage", "MessageSpacing")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -87.0
+offset_right = 68.0
+offset_bottom = -19.0
+grow_vertical = 0
+theme = ExtResource("1_to4u0")
+script = ExtResource("2_praw3")
+MessageLabel = NodePath("PanelContainer/MarginContainer/HBoxContainer/RichTextLabel")
+TextureRectImage = NodePath("PanelContainer/MarginContainer/HBoxContainer/TextureRect")
+MessageSpacing = NodePath("PanelContainer/MarginContainer/HBoxContainer/Spacing")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j82es")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Spacing" type="Control" parent="PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1

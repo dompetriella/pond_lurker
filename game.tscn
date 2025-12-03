@@ -1,0 +1,144 @@
+[gd_scene load_steps=13 format=3 uid="uid://brmkjkj45tbhm"]
+
+[ext_resource type="Script" uid="uid://dopmkyg752t38" path="res://Game.cs" id="1_t88pq"]
+[ext_resource type="Script" uid="uid://d1316acctk7q3" path="res://Common/Managers/EventManager/UiEvents.cs" id="2_joorw"]
+[ext_resource type="Script" uid="uid://brlcv25ea2t7" path="res://Common/Managers/TransitionManager.cs" id="2_r0x5m"]
+[ext_resource type="Script" uid="uid://d4l3lfhiv6egd" path="res://Common/Managers/AudioManager.cs" id="3_3mrqo"]
+[ext_resource type="Script" uid="uid://d07ga5blmf7gk" path="res://Common/Managers/ScaffoldManager.cs" id="4_joorw"]
+[ext_resource type="PackedScene" uid="uid://xod7cm3vmepr" path="res://Common/Debug/Scenes/TestTitlePage/TestTitlePage.tscn" id="5_2vekm"]
+[ext_resource type="Script" uid="uid://baaik040moghj" path="res://Common/Managers/NotificationManager/NotificationManager.cs" id="5_yx171"]
+[ext_resource type="Script" uid="uid://bal333coav7xm" path="res://Common/Managers/StateManager/UiState.cs" id="8_joorw"]
+
+[sub_resource type="Animation" id="Animation_ryrav"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7jktm"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eow3j"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5wjh"]
+_data = {
+&"RESET": SubResource("Animation_ryrav"),
+&"fade_in": SubResource("Animation_7jktm"),
+&"fade_out": SubResource("Animation_eow3j")
+}
+
+[node name="Game" type="Node"]
+script = ExtResource("1_t88pq")
+
+[node name="EventManager" type="Node" parent="."]
+
+[node name="UiEvents" type="Node" parent="EventManager"]
+script = ExtResource("2_joorw")
+
+[node name="StateManager" type="Node" parent="."]
+
+[node name="UiState" type="Node" parent="StateManager"]
+script = ExtResource("8_joorw")
+
+[node name="TransitionManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("ColorRectNode", "AnimationPlayerNode")]
+layer = 0
+script = ExtResource("2_r0x5m")
+ColorRectNode = NodePath("TransitionLayer/ColorRect")
+AnimationPlayerNode = NodePath("TransitionLayer/TransitionPlayer")
+
+[node name="TransitionLayer" type="Control" parent="TransitionManager"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="TransitionManager/TransitionLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="TransitionPlayer" type="AnimationPlayer" parent="TransitionManager/TransitionLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_j5wjh")
+}
+
+[node name="NotificationManager" type="CanvasLayer" parent="." node_paths=PackedStringArray("NotificationColumn")]
+layer = 0
+script = ExtResource("5_yx171")
+NotificationColumn = NodePath("Control/MarginContainer/NotificationColumn")
+
+[node name="Control" type="Control" parent="NotificationManager"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NotificationManager/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 16.0
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="NotificationColumn" type="VBoxContainer" parent="NotificationManager/Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="AudioManager" type="Node" parent="." node_paths=PackedStringArray("MusicNode")]
+script = ExtResource("3_3mrqo")
+MusicNode = NodePath("Music")
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioManager"]
+
+[node name="ScaffoldManager" type="Node" parent="."]
+script = ExtResource("4_joorw")
+
+[node name="TestTitlePage" parent="ScaffoldManager" instance=ExtResource("5_2vekm")]
