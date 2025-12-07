@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2qrpntbnv82g"]
+
+[ext_resource type="Texture2D" uid="uid://dg1rs7kni3mxd" path="res://Assets/Themes/Backgrounds/DefaultBackground.tres" id="1_u3nj8"]
+[ext_resource type="PackedScene" uid="uid://cda3w1144h7rr" path="res://Scenes/World/MainGrid/MainGrid.tscn" id="2_g4hri"]
+
+[node name="GameScreen" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Background" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_u3nj8")
+
+[node name="Control" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainGrid" parent="Control/Control" instance=ExtResource("2_g4hri")]
+layout_mode = 0
+anchors_preset = 0
