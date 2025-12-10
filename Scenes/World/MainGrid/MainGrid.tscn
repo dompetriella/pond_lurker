@@ -1,69 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cda3w1144h7rr"]
+[gd_scene load_steps=2 format=3 uid="uid://cda3w1144h7rr"]
 
 [ext_resource type="Script" uid="uid://gq67embeiqox" path="res://Scenes/World/MainGrid/MainGrid.cs" id="1_piya6"]
-[ext_resource type="PackedScene" uid="uid://bg3uuosr5k2jd" path="res://Scenes/World/MainGrid/GridTile/GridTile.tscn" id="2_qejr2"]
 
 [node name="MainGrid" type="GridContainer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -106.0
-offset_top = -106.0
-offset_right = 106.0
-offset_bottom = 106.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 212.0
+offset_bottom = 212.0
 columns = 4
 script = ExtResource("1_piya6")
-
-[node name="GridTile" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile2" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile3" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile4" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile5" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile6" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile7" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile8" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile9" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile10" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile11" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile12" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile13" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile15" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-
-[node name="GridTile16" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="GridTile14" parent="." instance=ExtResource("2_qejr2")]
-layout_mode = 2
+GridTileUID = "uid://bg3uuosr5k2jd"

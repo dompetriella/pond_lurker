@@ -1,9 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg3uuosr5k2jd"]
+[gd_scene load_steps=6 format=3 uid="uid://bg3uuosr5k2jd"]
 
 [ext_resource type="Texture2D" uid="uid://cqv2thbgs86be" path="res://Assets/Images/icon.svg" id="1_1nhpg"]
+[ext_resource type="Script" uid="uid://r6sgif1bsqv7" path="res://Scenes/World/MainGrid/GridTile/GridTile.cs" id="1_xcbhl"]
 
-[node name="GridTile" type="Panel"]
-custom_minimum_size = Vector2(50, 50)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcbhl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.39215687)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Gradient" id="Gradient_xcbhl"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mnqx2"]
+gradient = SubResource("Gradient_xcbhl")
+
+[node name="GridTile" type="Panel" node_paths=PackedStringArray("TextureRect", "ValueLabel")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -15,6 +34,10 @@ offset_right = 25.0
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xcbhl")
+script = ExtResource("1_xcbhl")
+TextureRect = NodePath("MarginContainer/TextureRect")
+ValueLabel = NodePath("MarginContainer/ValueLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -29,7 +52,23 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("1_1nhpg")
 expand_mode = 2
 stretch_mode = 5
+
+[node name="ValueLabel" type="RichTextLabel" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+autowrap_trim_flags = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShellTexture" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture1D_mnqx2")
+expand_mode = 2

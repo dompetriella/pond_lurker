@@ -19,6 +19,7 @@ config/icon="res://Assets/Images/icon.svg"
 
 window/size/initial_screen=1
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
