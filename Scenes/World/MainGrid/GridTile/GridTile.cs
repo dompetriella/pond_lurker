@@ -14,33 +14,26 @@ public partial class GridTile : Panel
     public Vector2I TileCoordinates;
     public TileValue Value;
 
+
+    private StyleBoxFlat style;
     public override void _Ready()
     {
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
+
     }
 
-private void OnMouseEntered()
-{
-    var style = GetThemeStylebox("panel", "PanelContainer");
-
-    if (style is StyleBoxFlat flatStyleBox)
+    private void OnMouseEntered()
     {
-        var newStyle = flatStyleBox.Duplicate() as StyleBoxFlat;
-        newStyle.BgColor = Colors.White;
-        AddThemeStyleboxOverride("panel", newStyle);
+        this.OverrideStyleBoxWith(
+            (StyleBoxSubtypes.Panel, box => box.With(bgColor: Colors.White with { A = 0.25f }))
+        );
     }
-}
 
-private void OnMouseExited()
-{
-    var style = GetThemeStylebox("panel", "PanelContainer");
-
-    if (style is StyleBoxFlat flatStyleBox)
+    private void OnMouseExited()
     {
-        var newStyle = flatStyleBox.Duplicate() as StyleBoxFlat;
-        newStyle.BgColor = Colors.Transparent;
-        AddThemeStyleboxOverride("panel", newStyle);
+        this.OverrideStyleBoxWith(
+             (StyleBoxSubtypes.Panel, box => box.With(bgColor: Colors.Transparent))
+         );
     }
-}
 }
