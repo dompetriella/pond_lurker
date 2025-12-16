@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2tlikxp857vr"]
+
+[ext_resource type="Theme" uid="uid://befu1x5a2206v" path="res://Assets/Themes/ApplicationTheme.tres" id="1_j67o6"]
+[ext_resource type="Script" uid="uid://pria4h86akr4" path="res://Scenes/Menus/SelectScreen/CreateGridButton/CreateGridButton.cs" id="2_5f43h"]
+
+[node name="CreateGridButton" type="Button"]
+size_flags_horizontal = 4
+theme = ExtResource("1_j67o6")
+text = "Easy"
+script = ExtResource("2_5f43h")

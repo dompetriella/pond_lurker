@@ -17,8 +17,8 @@ public static class StyleBoxFlatExtensions
     ///
     /// Change the normal background to light gray and hover to light blue
     /// myButton.OverrideStyleBoxWith(
-    ///     (StyleBoxNames.Button.Normal, box => sb.With(bgColor: Colors.LightGray)),
-    ///     (StyleBoxNames.Button.Hover, box => sb.With(bgColor: Colors.LightBlue))
+    ///     (StyleBoxSubtype.Button.Normal, box => box.With(bgColor: Colors.LightGray)),
+    ///     (StyleBoxSubtype.Button.Hover, box => box.With(bgColor: Colors.LightBlue))
     /// );
     /// </code>
     /// </summary>

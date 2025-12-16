@@ -1,12 +1,16 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class MainGrid : GridContainer
 {
 
     [Export]
     public string GridTileUID;
+
+    [Export]
+    public Label MineLabel;
 
     //
     public List<GridTile> GridTilesList { get; private set; } = [];
@@ -31,7 +35,7 @@ public partial class MainGrid : GridContainer
     {
         base._Ready();
 
-        GenerateGrid(baseColumns: 8, minesPercentage: 0.20);
+
     }
 
     public void GenerateGrid(int baseColumns, double minesPercentage)
@@ -41,6 +45,7 @@ public partial class MainGrid : GridContainer
         Columns = baseColumns;
         TotalTileAmount = baseColumns * baseColumns;
         MineTotal = (int)Math.Round(TotalTileAmount * minesPercentage);
+        MineLabel.Text = $"{MineTotal}";
 
         float adjustedSize = BaseTileDimension * MathF.Sqrt(BaseTileAmount / TotalTileAmount);
         GD.Print(adjustedSize);
@@ -88,44 +93,25 @@ public partial class MainGrid : GridContainer
         {
             for (int x = 0; x < BaseColumns; x++)
             {
+
                 GridTile tile = tileGrid[y, x];
+
+                // Connect the on clicked signal
+                tile.TileSelected += OnTileClicked;
+                tile.TileCoordinates = new Vector2I(x, y);
+
                 if (!(tile.Value == TileValue.Mine))
                 {
-                    tile.TileCoordinates = new Vector2I(x, y);
+
                     tile.TextureRect.Texture = null;
 
-                    GridTile neighboringTile;
                     var accumulatedValue = 0;
-
-                    // Check left
-                    if (tileGrid.TryGet(x - 1, y, out neighboringTile))
+                    var listOfNeighbors = tileGrid.GetAdjacent(coordinate: tile.TileCoordinates);
+                    listOfNeighbors.ForEach((tile) =>
                     {
-                        if (neighboringTile.Value == TileValue.Mine) accumulatedValue++;
-                    }
+                        if (tile.Value == TileValue.Mine) accumulatedValue++;
+                    });
 
-                    // Check right
-                    if (tileGrid.TryGet(x + 1, y, out neighboringTile))
-                    {
-                        if (neighboringTile.Value == TileValue.Mine) accumulatedValue++;
-                    }
-
-                    // Check top
-                    for (int i = -1; i <= 1; i++)
-                    {
-                        if (tileGrid.TryGet(x + i, y - 1, out neighboringTile))
-                        {
-                            if (neighboringTile.Value == TileValue.Mine) accumulatedValue++;
-                        }
-                    }
-
-                    // Check bottom
-                    for (int i = -1; i <= 1; i++)
-                    {
-                        if (tileGrid.TryGet(x + i, y + 1, out neighboringTile))
-                        {
-                            if (neighboringTile.Value == TileValue.Mine) accumulatedValue++;
-                        }
-                    }
 
                     tile.Value = (TileValue)accumulatedValue;
 
@@ -138,4 +124,10 @@ public partial class MainGrid : GridContainer
         return gridTiles;
     }
 
+    // Tile Calculations
+
+    private void OnTileClicked(GridTile tile)
+    {
+       tile.DiscoverTile(totalGrid: GridTilesGrid);
+    }
 }

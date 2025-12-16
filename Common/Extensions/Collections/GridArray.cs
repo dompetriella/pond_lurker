@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public static class GridArrayExtensions
@@ -19,21 +20,51 @@ public static class GridArrayExtensions
     }
 
     /// <summary>
-    /// Tries to get an element from an x,y coordinate safely.
-    /// Returns true if the index exists, false otherwise.
+    /// Returns all adjacent elements (optionally including diagonals) within the given radius.
+    /// Automatically bounds-checks and excludes the center element.
     /// </summary>
-    public static bool TryGet<T>(this T[,] grid, int x, int y, out T value)
+    public static List<T> GetAdjacent<T>(
+        this T[,] grid,
+        int x,
+        int y,
+        bool includeDiagonals = true,
+        int radius = 1)
     {
+        var neighbors = new List<T>();
         int rows = grid.GetLength(0);
         int cols = grid.GetLength(1);
 
-        if (x >= 0 && x < cols && y >= 0 && y < rows)
+        for (int dy = -radius; dy <= radius; dy++)
         {
-            value = grid[y, x];
-            return true;
+            for (int dx = -radius; dx <= radius; dx++)
+            {
+                // Skip self
+                if (dx == 0 && dy == 0)
+                    continue;
+
+                // Skip diagonals if not included
+                if (!includeDiagonals && Math.Abs(dx) + Math.Abs(dy) > 1)
+                    continue;
+
+                int nx = x + dx;
+                int ny = y + dy;
+
+                if (nx >= 0 && nx < cols && ny >= 0 && ny < rows)
+                    neighbors.Add(grid[ny, nx]);
+            }
         }
 
-        value = default;
-        return false;
+        return neighbors;
     }
+
+    /// <summary>
+    /// Vector2I overload of GetAdjacent
+    /// </summary>
+    public static List<T> GetAdjacent<T>(
+        this T[,] grid,
+        Godot.Vector2I coordinate,
+        bool includeDiagonals = true,
+        int radius = 1)
+        => grid.GetAdjacent(coordinate.X, coordinate.Y, includeDiagonals, radius);
+
 }

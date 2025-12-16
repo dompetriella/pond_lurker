@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2qrpntbnv82g"]
+[gd_scene load_steps=5 format=3 uid="uid://b2qrpntbnv82g"]
 
+[ext_resource type="Script" uid="uid://cwm6iga18elmt" path="res://Scenes/Menus/GameScreen/GameScreen.cs" id="1_snrmt"]
 [ext_resource type="Texture2D" uid="uid://dg1rs7kni3mxd" path="res://Assets/Themes/Backgrounds/DefaultBackground.tres" id="1_u3nj8"]
 [ext_resource type="PackedScene" uid="uid://cda3w1144h7rr" path="res://Scenes/World/MainGrid/MainGrid.tscn" id="2_g4hri"]
+[ext_resource type="Texture2D" uid="uid://cqv2thbgs86be" path="res://Assets/Images/icon.svg" id="3_i6bnq"]
 
-[node name="GameScreen" type="Node"]
+[node name="GameScreen" type="Node" node_paths=PackedStringArray("MainGrid")]
+script = ExtResource("1_snrmt")
+MainGrid = NodePath("Control/MarginContainer/VBoxContainer/MainGrid")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -24,16 +28,42 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_u3nj8")
 
-[node name="MainGrid" parent="Control" instance=ExtResource("2_g4hri")]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -106.0
-offset_top = -106.0
-offset_right = 106.0
-offset_bottom = 106.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_i6bnq")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainGrid" parent="Control/MarginContainer/VBoxContainer" node_paths=PackedStringArray("MineLabel") instance=ExtResource("2_g4hri")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+MineLabel = NodePath("../HBoxContainer/Label")

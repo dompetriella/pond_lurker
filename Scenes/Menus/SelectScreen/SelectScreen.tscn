@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnxdcwwed7h5p"]
+
+[ext_resource type="Script" uid="uid://dwcem56sfhpp7" path="res://Scenes/Menus/SelectScreen/SelectScreen.cs" id="1_2svvr"]
+[ext_resource type="Texture2D" uid="uid://dg1rs7kni3mxd" path="res://Assets/Themes/Backgrounds/DefaultBackground.tres" id="2_8anrd"]
+[ext_resource type="Theme" uid="uid://befu1x5a2206v" path="res://Assets/Themes/ApplicationTheme.tres" id="3_4yqju"]
+[ext_resource type="Script" uid="uid://c1l6d57bw21vn" path="res://Common/Components/NavigationRouteComponent.cs" id="4_4yqju"]
+[ext_resource type="PackedScene" uid="uid://b2tlikxp857vr" path="res://Scenes/Menus/SelectScreen/CreateGridButton/CreateGridButton.tscn" id="5_f8slx"]
+
+[node name="SelectScreen" type="Control" node_paths=PackedStringArray("ReturnButton", "NavigationRouteComponent")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2svvr")
+ReturnButton = NodePath("ReturnButton")
+NavigationRouteComponent = NodePath("ReturnButton/NavigationRouteComponent")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8anrd")
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 171.0
+offset_bottom = 38.0
+theme = ExtResource("3_4yqju")
+text = "Return To Main Page"
+
+[node name="NavigationRouteComponent" type="Node" parent="ReturnButton"]
+script = ExtResource("4_4yqju")
+SceneUID = "uid://dsrsdrrwrsys8"
+metadata/_custom_type_script = "uid://c1l6d57bw21vn"
+
+[node name="Vbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="Vbox"]
+layout_mode = 2
+theme = ExtResource("3_4yqju")
+theme_override_font_sizes/font_size = 32
+text = "Difficulty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Vbox"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="EasyButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+layout_mode = 2
+Columns = 6
+MinesPercentage = 0.2
+
+[node name="MediumButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+layout_mode = 2
+text = "Medium"
+Columns = 8
+MinesPercentage = 0.2
+
+[node name="HardButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+layout_mode = 2
+text = "Hard"
+Columns = 12
+MinesPercentage = 0.2
+
+[node name="ExpertButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+layout_mode = 2
+text = "Expert"
+Columns = 16
+MinesPercentage = 0.25
