@@ -48,20 +48,4 @@ public static class ListExtensions
 
         return grid;
     }
-
-    /// <summary>
-    /// Tries to get an element from a list safely.
-    /// Returns true if the index exists, false otherwise.
-    /// </summary>
-    public static bool TryGet<T>(this List<T> list, int index, out T value)
-    {
-        if (index >= 0 && index < list.Count)
-        {
-            value = list[index];
-            return true;
-        }
-
-        value = default;
-        return false;
-    }
 }
