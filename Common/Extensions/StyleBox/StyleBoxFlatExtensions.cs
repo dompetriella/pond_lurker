@@ -5,7 +5,7 @@ using Godot;
 public static class StyleBoxFlatExtensions
 {
     /// <summary>
-    /// Overrides a single instance of a Control's StyleBoxFlat
+    /// Shorthand way of overriding a single instance of a Control's StyleBoxFlat
     /// 
     /// This method retrieves the existing StyleBoxFlat for the specified subtype(s),
     /// applies the provided modification function (e.g., using <see cref="StyleBoxFlatExtensions.With"/>),

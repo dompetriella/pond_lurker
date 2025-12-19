@@ -14,8 +14,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2svvr")
-ReturnButton = NodePath("ReturnButton")
-NavigationRouteComponent = NodePath("ReturnButton/NavigationRouteComponent")
+ReturnButton = NodePath("MarginContainer/Vbox/Button")
+NavigationRouteComponent = NodePath("MarginContainer/Vbox/Button/NavigationRouteComponent")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -30,29 +30,24 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_8anrd")
 
-[node name="ReturnButton" type="Button" parent="."]
-layout_mode = 0
-offset_right = 171.0
-offset_bottom = 38.0
-theme = ExtResource("3_4yqju")
-text = "Return To Main Page"
-
-[node name="NavigationRouteComponent" type="Node" parent="ReturnButton"]
-script = ExtResource("4_4yqju")
-SceneUID = "uid://dsrsdrrwrsys8"
-metadata/_custom_type_script = "uid://c1l6d57bw21vn"
-
-[node name="Vbox" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Vbox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Label" type="Label" parent="Vbox"]
+[node name="Label" type="Label" parent="MarginContainer/Vbox"]
 layout_mode = 2
 theme = ExtResource("3_4yqju")
 theme_override_font_sizes/font_size = 32
@@ -60,29 +55,45 @@ text = "Difficulty"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="Vbox"]
+[node name="Control" type="Control" parent="MarginContainer/Vbox"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="EasyButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+[node name="EasyButton" parent="MarginContainer/Vbox" instance=ExtResource("5_f8slx")]
 layout_mode = 2
 Columns = 6
-MinesPercentage = 0.2
+MinesPercentage = 0.05
 
-[node name="MediumButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+[node name="MediumButton" parent="MarginContainer/Vbox" instance=ExtResource("5_f8slx")]
 layout_mode = 2
 text = "Medium"
 Columns = 8
-MinesPercentage = 0.2
+MinesPercentage = 0.1
 
-[node name="HardButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+[node name="HardButton" parent="MarginContainer/Vbox" instance=ExtResource("5_f8slx")]
 layout_mode = 2
 text = "Hard"
 Columns = 12
-MinesPercentage = 0.2
+MinesPercentage = 0.15
 
-[node name="ExpertButton" parent="Vbox" instance=ExtResource("5_f8slx")]
+[node name="ExpertButton" parent="MarginContainer/Vbox" instance=ExtResource("5_f8slx")]
 layout_mode = 2
 text = "Expert"
 Columns = 16
-MinesPercentage = 0.25
+MinesPercentage = 0.2
+
+[node name="Control2" type="Control" parent="MarginContainer/Vbox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/Vbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("3_4yqju")
+text = "Return to Title Screen"
+
+[node name="NavigationRouteComponent" type="Node" parent="MarginContainer/Vbox/Button"]
+script = ExtResource("4_4yqju")
+SceneUID = "uid://dsrsdrrwrsys8"
+metadata/_custom_type_script = "uid://c1l6d57bw21vn"

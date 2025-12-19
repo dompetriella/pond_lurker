@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsrsdrrwrsys8"]
+[gd_scene load_steps=5 format=3 uid="uid://dsrsdrrwrsys8"]
 
 [ext_resource type="Script" uid="uid://jivqbgtx4p0b" path="res://Scenes/Menus/TitleScreen/TitleScreen.cs" id="1_tka0q"]
 [ext_resource type="Theme" uid="uid://befu1x5a2206v" path="res://Assets/Themes/ApplicationTheme.tres" id="2_66sbl"]
 [ext_resource type="Texture2D" uid="uid://dg1rs7kni3mxd" path="res://Assets/Themes/Backgrounds/DefaultBackground.tres" id="2_axbxb"]
+[ext_resource type="Script" uid="uid://c1l6d57bw21vn" path="res://Common/Components/NavigationRouteComponent.cs" id="4_b0gje"]
 
 [node name="TitleScreen" type="Control" node_paths=PackedStringArray("NextPageButton", "NavigationRouteComponent")]
 layout_mode = 3
@@ -12,8 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tka0q")
-NextPageButton = NodePath("VBoxContainer/PageButton")
-NavigationRouteComponent = NodePath("")
+NextPageButton = NodePath("CenterContainer/VBoxContainer/PageButton")
+NavigationRouteComponent = NodePath("CenterContainer/VBoxContainer/PageButton/NavigationRouteComponent")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -24,26 +25,34 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_axbxb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_top = 230.0
-offset_right = 1152.0
-offset_bottom = 418.0
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_66sbl")
 theme_override_font_sizes/font_size = 72
-text = "BioPond"
+text = "Maritime Mines"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PageButton" type="Button" parent="VBoxContainer"]
+[node name="PageButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_66sbl")
-text = "Go To Next Page"
+text = "Start Game"
+
+[node name="NavigationRouteComponent" type="Node" parent="CenterContainer/VBoxContainer/PageButton"]
+script = ExtResource("4_b0gje")
+SceneUID = "uid://dnxdcwwed7h5p"
+metadata/_custom_type_script = "uid://c1l6d57bw21vn"

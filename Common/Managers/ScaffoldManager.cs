@@ -24,10 +24,19 @@ public partial class ScaffoldManager : Node
         await BuildSceneTree(newSceneTree: newSceneTree, dataLoadingFunction: dataLoadingFunction, transitionTypeOnEnterNewScene: transitionTypeOnEnterNewScene, transitionTypeOnExitScene: transitionTypeOnExitScene, transitionDuration: transitionDuration);
     }
 
+
     public async void ScaffoldNewSceneTree(PackedScene newSceneTree, Func<Task> dataLoadingFunction = null, String transitionTypeOnExitScene = TransitionManager.TransitionType.FadeOut, String transitionTypeOnEnterNewScene = TransitionManager.TransitionType.FadeIn, float transitionDuration = 0.5f)
     {
 
         var newSceneTreeNode = newSceneTree.Instantiate();
+
+        await BuildSceneTree(newSceneTree: newSceneTreeNode, dataLoadingFunction: dataLoadingFunction, transitionTypeOnEnterNewScene: transitionTypeOnEnterNewScene, transitionTypeOnExitScene: transitionTypeOnExitScene, transitionDuration: transitionDuration);
+    }
+
+        public async void ScaffoldNewSceneTree(string sceneUID, Func<Task> dataLoadingFunction = null, String transitionTypeOnExitScene = TransitionManager.TransitionType.FadeOut, String transitionTypeOnEnterNewScene = TransitionManager.TransitionType.FadeIn, float transitionDuration = 0.5f)
+    {
+        PackedScene packedScene = ResourceLoader.Load<PackedScene>(sceneUID);
+        var newSceneTreeNode = packedScene.Instantiate();
 
         await BuildSceneTree(newSceneTree: newSceneTreeNode, dataLoadingFunction: dataLoadingFunction, transitionTypeOnEnterNewScene: transitionTypeOnEnterNewScene, transitionTypeOnExitScene: transitionTypeOnExitScene, transitionDuration: transitionDuration);
     }
