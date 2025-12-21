@@ -18,6 +18,7 @@ public partial class TitleScreen : Control
 
         NextPageButton.Pressed += async () =>
         {
-            ScaffoldManager.Instance.ScaffoldNewSceneTree(newSceneTree: NavigationRouteComponent.Scene.Instantiate());        };
+            var scaffoldManager = ScaffoldManager.Instance;
+            scaffoldManager.ScaffoldNewSceneTree(newSceneTree: NavigationRouteComponent.Scene.Instantiate());};
     }
 }

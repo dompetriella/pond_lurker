@@ -34,8 +34,6 @@ public partial class MainGrid : GridContainer
     public override void _Ready()
     {
         base._Ready();
-
-
     }
 
     public void GenerateGrid(int baseColumns, double minesPercentage)
@@ -48,7 +46,6 @@ public partial class MainGrid : GridContainer
         MineLabel.Text = $"{MineTotal}";
 
         float adjustedSize = BaseTileDimension * MathF.Sqrt(BaseTileAmount / TotalTileAmount);
-        GD.Print(adjustedSize);
         AdjustedTileDimension = Math.Clamp(adjustedSize, min: MinimumTileSize, max: BaseTileDimension);
 
 
@@ -71,7 +68,6 @@ public partial class MainGrid : GridContainer
 
         var gridScene = ResourceLoader.Load<PackedScene>(GridTileUID);
 
-        // Create tiles and add appropriate mines randomly
         for (int i = 0; i < TotalTileAmount; i++)
         {
             GridTile gridTileInstance = (GridTile)gridScene.Instantiate();
@@ -96,14 +92,17 @@ public partial class MainGrid : GridContainer
 
                 GridTile tile = tileGrid[y, x];
 
-                // Connect the on clicked signal
+                // Connect signals
                 tile.TileSelected += OnTileClicked;
+                tile.TileMarked += OnTileMarked;
+
+
                 tile.TileCoordinates = new Vector2I(x, y);
 
                 if (!(tile.Value == TileValue.Mine))
                 {
 
-                    tile.TextureRect.Texture = null;
+                    tile.MineTexture.Hide();
 
                     var accumulatedValue = 0;
                     var listOfNeighbors = tileGrid.GetAdjacent(coordinate: tile.TileCoordinates);
@@ -129,5 +128,10 @@ public partial class MainGrid : GridContainer
     private void OnTileClicked(GridTile tile)
     {
        tile.DiscoverTile(totalGrid: GridTilesGrid);
+    }
+
+    private void OnTileMarked(GridTile tile)
+    {
+       tile.MarkTile(totalGrid: GridTilesGrid);
     }
 }

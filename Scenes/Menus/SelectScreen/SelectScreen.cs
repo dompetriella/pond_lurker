@@ -15,7 +15,7 @@ public partial class SelectScreen : Control
     {
         base._Ready();
 
-        ReturnButton.Pressed += () => ScaffoldManager.Instance.ScaffoldNewSceneTree(NavigationRouteComponent.SceneUID);    
+        ReturnButton.Pressed += () => ScaffoldManager.Instance.ScaffoldNewSceneTree(NavigationRouteComponent.Scene.Instantiate());
 
     }
 }

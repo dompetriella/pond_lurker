@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bg3uuosr5k2jd"]
+[gd_scene load_steps=9 format=3 uid="uid://bg3uuosr5k2jd"]
 
-[ext_resource type="Texture2D" uid="uid://cqv2thbgs86be" path="res://Assets/Images/icon.svg" id="1_1nhpg"]
 [ext_resource type="Script" uid="uid://r6sgif1bsqv7" path="res://Scenes/World/MainGrid/GridTile/GridTile.cs" id="1_xcbhl"]
+[ext_resource type="Texture2D" uid="uid://blkuhv06kno2r" path="res://Assets/Images/mine.svg" id="2_xcbhl"]
+[ext_resource type="Texture2D" uid="uid://cnseweka0ixtd" path="res://Assets/Images/flag_spaced.svg" id="3_mnqx2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcbhl"]
 content_margin_left = 0.0
@@ -20,12 +21,6 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="Gradient" id="Gradient_xcbhl"]
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_mnqx2"]
-gradient = SubResource("Gradient_xcbhl")
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xcbhl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnqx2"]
@@ -39,7 +34,7 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wt5f"]
 
-[node name="GridTile" type="Panel" node_paths=PackedStringArray("TextureRect", "ValueLabel", "OverlayButton")]
+[node name="GridTile" type="Panel" node_paths=PackedStringArray("MineTexture", "ValueLabel", "FlagTexture", "OverlayButton")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -53,8 +48,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xcbhl")
 script = ExtResource("1_xcbhl")
-TextureRect = NodePath("MarginContainer/TextureRect")
+MineTexture = NodePath("MarginContainer/MineTexture")
 ValueLabel = NodePath("MarginContainer/ValueLabel")
+FlagTexture = NodePath("MarginContainer/FlagTexture")
 OverlayButton = NodePath("MarginContainer/OverlayButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -69,10 +65,10 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="MineTexture" type="TextureRect" parent="MarginContainer"]
 visible = false
 layout_mode = 2
-texture = ExtResource("1_1nhpg")
+texture = ExtResource("2_xcbhl")
 expand_mode = 2
 stretch_mode = 5
 
@@ -86,9 +82,10 @@ autowrap_trim_flags = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ShellTexture" type="TextureRect" parent="MarginContainer"]
+[node name="FlagTexture" type="TextureRect" parent="MarginContainer"]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture1D_mnqx2")
+texture = ExtResource("3_mnqx2")
 expand_mode = 2
 
 [node name="OverlayButton" type="Button" parent="MarginContainer"]
